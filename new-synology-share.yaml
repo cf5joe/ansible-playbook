@@ -1,8 +1,9 @@
+
 ---
 - name: Create shared folder on Synology NAS
-  hosts: Synology
-  gather_facts: yes
-  become: yes
+  hosts: CF5NAS
+  gather_facts: no   # Synology doesn’t need full facts unless required
+  become: no         # Usually not needed if user has rights
   tasks:
     - name: Create shared folder using shell command
       ansible.builtin.shell: |
