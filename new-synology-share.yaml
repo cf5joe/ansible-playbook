@@ -1,6 +1,6 @@
 ---
 - name: Create shared folder on Synology NAS
-  hosts: ansible_cf5nas
+  hosts: cf5nas
   gather_facts: yes
   become: yes
   tasks:
