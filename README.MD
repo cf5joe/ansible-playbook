@@ -1,1 +1,1 @@
-asdhgasdhg
+This repo is meant to store playbooks for ansible, usable by Semaphore
