@@ -1,0 +1,15 @@
+---
+- name: Create shared folder on Synology NAS
+  hosts: ansible_cf5nas
+  gather_facts: yes
+  become: yes
+  tasks:
+    - name: Create shared folder using shell command
+      ansible.builtin.shell: |
+        synoshare --add "{{ share_name }}" "{{ share_path }}" "{{ share_description }}"
+      args:
+        executable: /bin/bash
+      vars:
+        share_name: "automation_share"
+        share_path: "/volume1/automation_share"
+        share_description: "Created by Ansible via Semaphore"
