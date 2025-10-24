@@ -1,0 +1,35 @@
+---
+- name: Create shared folder on Synology NAS
+  hosts: cf5nas.cf5home.net      # or 'NAS' if you're using a group
+  gather_facts: no
+  become: yes
+  become_method: sudo
+
+  vars:
+    share_name: "automation_share"
+    share_path: "/volume1/automation_share"
+    share_description: "Created by Ansible via Semaphore"
+
+  pre_tasks:
+    - name: Verify synoshare binary exists
+      ansible.builtin.shell: 'test -x /usr/syno/bin/synoshare'
+      args:
+        executable: /bin/sh
+      register: syno_bin_check
+      changed_when: false
+      failed_when: syno_bin_check.rc != 0
+
+  tasks:
+    - name: Check if the share already exists
+      ansible.builtin.shell: '/usr/syno/bin/synoshare --get "{{ share_name }}"'
+      args:
+        executable: /bin/sh
+      register: share_get
+      changed_when: false
+      failed_when: false
+
+    - name: Create the share if missing
+      ansible.builtin.shell: '/usr/syno/bin/synoshare --add "{{ share_name }}" "{{ share_path }}" "{{ share_description }}"'
+      args:
+        executable: /bin/sh
+      when: share_get.rc != 0
