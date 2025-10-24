@@ -1,15 +1,11 @@
 
 ---
-
-- name: Sanity check SSH vars
-  debug:
-    msg: "user={{ ansible_user }}, key={{ ansible_private_key_file }}, host={{ ansible_host }}, port={{ ansible_port }}"
-
 - name: Create shared folder on Synology NAS
   hosts: cf5nas.cf5home.net
   gather_facts: no   # Synology doesn’t need full facts unless required
   become: no         # Usually not needed if user has rights
   tasks:
+
     - name: Create shared folder using shell command
       ansible.builtin.shell: |
         synoshare --add "{{ share_name }}" "{{ share_path }}" "{{ share_description }}"
@@ -19,3 +15,6 @@
         share_name: "automation_share"
         share_path: "/volume1/automation_share"
         share_description: "Created by Ansible via Semaphore"
+- name: Sanity check SSH vars
+  debug:
+    msg: "user={{ ansible_user }}, key={{ ansible_private_key_file }}, host={{ ansible_host }}, port={{ ansible_port }}"
