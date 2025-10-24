@@ -1,6 +1,6 @@
 ---
 - name: Create shared folder on Synology NAS
-  hosts: cf5nas
+  hosts: Synology
   gather_facts: yes
   become: yes
   tasks:
