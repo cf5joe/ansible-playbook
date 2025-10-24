@@ -15,6 +15,4 @@
         share_name: "automation_share"
         share_path: "/volume1/automation_share"
         share_description: "Created by Ansible via Semaphore"
-- name: Sanity check SSH vars
-  debug:
-    msg: "user={{ ansible_user }}, key={{ ansible_private_key_file }}, host={{ ansible_host }}, port={{ ansible_port }}"
+
