@@ -1,5 +1,10 @@
 
 ---
+
+- name: Sanity check SSH vars
+  debug:
+    msg: "user={{ ansible_user }}, key={{ ansible_private_key_file }}, host={{ ansible_host }}, port={{ ansible_port }}"
+
 - name: Create shared folder on Synology NAS
   hosts: cf5nas.cf5home.net
   gather_facts: no   # Synology doesn’t need full facts unless required
